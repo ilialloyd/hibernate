@@ -1,0 +1,63 @@
+package com.exercise.hibernate.main;
+/*
+ *           Leave your comment below if you have
+ --------------------------------------------------------
+ *
+ */
+
+import com.exercise.hibernate.entity.Employee;
+import com.exercise.utils.DateUtils;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import java.text.ParseException;
+import java.util.Date;
+
+public class UpdateKasia {
+    public static void main(String[] args) {
+
+
+        //create session factory
+        SessionFactory factory = new Configuration()
+                .configure()
+                .addAnnotatedClass(Employee.class)
+                .buildSessionFactory();
+
+
+        //create session
+        Session session = factory.getCurrentSession();
+
+
+        try {
+            //start transaction
+            session.beginTransaction();
+            //define id that you want to update data
+            int updatedEmployeeID = 6;
+            int updatedID = 8;
+
+
+            //Employee updateEmployee = session.get(Employee.class, updatedEmployeeID);
+            Employee updateEmployee = session.get(Employee.class, updatedID);
+
+            System.out.println("Employee before update: "+updateEmployee);
+            String date = "20/02/2000";
+            Date theDate = DateUtils.parseDate(date);
+            updateEmployee.setDateOfBirth(theDate);
+
+
+
+
+            //commit
+            session.getTransaction().commit();
+
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } finally {
+            factory.close();
+        }
+    }
+
+
+}

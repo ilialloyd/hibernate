@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+        <pattern>%-5level %logger{0} - %msg%n</pattern>
+    </encoder>
+</appender>
+
+<logger name="com.exercise.hibernate.main" level="INFO"/>
+<logger name="org.hibernate.SQL" level="DEBUG" />
+<logger name="org.hibernate.type" level="INFO" />
+
+<root level="info">
+    <appender-ref ref="console"/>
+</root>
+
+</configuration>
+
+        <!--This is log checker. When I create new data with CreateStudentDemo
+        Output was like that:
+        DEBUG SQL - insert into student (email, first_name, last_name) values (?, ?, ?)
+        Hibernate: insert into student (email, first_name, last_name) values (?, ?, ?)
+
+        To see the data instead of ? ? ?  we added this file and  these jars:
+        - logback-core-1.2.7.jar
+        - logback-classic-1.2.7.jar
+        - slf4j-api-1.7.32.jar
+
+        Now we can see the data we have added
+
+        TRACE BasicBinder - binding parameter [1] as [VARCHAR] - [ilialloyd@gmail.com]
+        TRACE BasicBinder - binding parameter [2] as [VARCHAR] - [Ilia]
+        TRACE BasicBinder - binding parameter [3] as [VARCHAR] - [Lloyd]
+
+-->
